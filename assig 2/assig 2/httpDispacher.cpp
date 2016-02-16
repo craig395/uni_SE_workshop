@@ -16,7 +16,7 @@ httpDispacher::~httpDispacher()
 	closeThreads = true;
 	for (auto i = workerThreads.begin(); i != workerThreads.end(); i++) {
 		auto& tmp = *i;
-
+		
 	}
 }
 
@@ -24,7 +24,7 @@ void httpDispacher::startThreads()
 {
 	//Populate array
 	for (int i = 0; i < WORKER_THREAD_COUNT; i++) {
-		//Add the thread
+		//Add the thread to the vecotr
 		workerThreads.push_back(std::thread(&httpDispacher::workerThread));
 	}
 }
