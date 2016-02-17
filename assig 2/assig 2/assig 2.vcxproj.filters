@@ -42,7 +42,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="httpDispacher.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\httpServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
