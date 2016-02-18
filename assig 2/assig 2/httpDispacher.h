@@ -1,6 +1,7 @@
 #pragma once
 #include <thread>
 #include <vector>
+#include <queue>
 #include <stdio.h>
 #include <winsock2.h>
 #include <string>
@@ -24,9 +25,10 @@ public:
 	void startThreads();
 private:
 	std::vector<std::thread> workerThreads;
-	std::vector<waiterInsruction> queuedRequests;
+	std::queue<waiterInsruction* > queuedRequests;
 	std::mutex dispacherMutex;
-	void addWaiterInstruction(SOCKET* clientSocket);
+	void addWaiterInstruction(SOCKET* clientSocket, std::string* clientRequest);
+	waiterInsruction* getWaiterInstruction();
 	void workerThread();
 	bool closeThreads = false;
 };
