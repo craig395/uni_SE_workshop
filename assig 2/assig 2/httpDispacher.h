@@ -3,13 +3,14 @@
 #include <vector>
 #include <queue>
 #include <stdio.h>
+#include <mutex>
 #include <winsock2.h>
 #include <string>
 #pragma comment(lib,"ws2_32.lib") 
 
 enum instruction{ reply, noJob, close };
 
-struct waiterInsruction
+struct threadInsruction
 {
 	std::string* request;
 	SOCKET* clientSocket;
@@ -23,12 +24,12 @@ public:
 	httpDispacher();
 	~httpDispacher();
 	void startThreads();
+	void addThreadInstruction(SOCKET* clientSocket, std::string* clientRequest);
 private:
 	std::vector<std::thread> workerThreads;
-	std::queue<waiterInsruction* > queuedRequests;
+	std::queue<threadInsruction*> queuedRequests;
 	std::mutex dispacherMutex;
-	void addWaiterInstruction(SOCKET* clientSocket, std::string* clientRequest);
-	waiterInsruction* getWaiterInstruction();
+	threadInsruction* getThreadInstruction();
 	void workerThread();
 	bool closeThreads = false;
 };
