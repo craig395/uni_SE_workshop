@@ -12,23 +12,37 @@ httpDispacher::httpDispacher()
 
 httpDispacher::~httpDispacher()
 {
+	stopAllThreads();
+	deleteallRequests();
+}
+
+void httpDispacher::stopAllThreads()
+{
 	//Close all worker threads
 	closeThreads = true;
-	for (auto i = workerThreads.begin(); i != workerThreads.end(); i++) 
+	for (auto i = workerThreads.begin(); i != workerThreads.end(); i++)
 	{
 		auto& tmp = *i;
 		tmp.join();
 		//TODO: delete the thread
 	}
+}
 
+void httpDispacher::deleteallRequests()
+{
 	//Delete all queued requests 
-	while (queuedRequests.size > 0)
+	while (queuedRequests.size() > 0)
 	{
 		threadInsruction* tmp = queuedRequests.front();
 		queuedRequests.pop();
+		SOCKET* tmpSocket = tmp->clientSocket;
+		closesocket(*tmpSocket);
+		delete tmpSocket;
 		delete tmp;
 	}
 }
+
+
 
 void httpDispacher::startThreads()
 {
@@ -36,11 +50,11 @@ void httpDispacher::startThreads()
 	for (int i = 0; i < WORKER_THREAD_COUNT; i++) 
 	{
 		//Add the thread to the vecotr
-		workerThreads.push_back(std::thread(&httpDispacher::workerThread));
+		workerThreads.push_back(std::thread(&httpDispacher::workerThread, this));
 	}
 }
 
-void httpDispacher::addThreadInstruction(SOCKET* clientSocket, std::string* clientRequest)
+void httpDispacher::addThreadInstruction(SOCKET* clientSocket)
 {
 	dispacherMutex.lock();//Preventing access problems with multiple threads
 
@@ -63,7 +77,6 @@ void httpDispacher::addThreadInstruction(SOCKET* clientSocket, std::string* clie
 		threadInsruction* tmp = new threadInsruction();
 		tmp->clientSocket = clientSocket;
 		tmp->inst = reply;
-		tmp->request = clientRequest;
 
 		dispacherMutex.lock();
 		queuedRequests.push(tmp);
@@ -79,21 +92,19 @@ threadInsruction * httpDispacher::getThreadInstruction()
 	{//Closing down
 		dispacherMutex.unlock();
 		threadInsruction* tmp = new threadInsruction();
-		tmp->inst = close;
+		tmp->inst = closeTheadWorker;
 		tmp->clientSocket = nullptr;
-		tmp->request = nullptr;
 		return tmp;
 	}
 	else
 	{//Not closing down
-	 //Check if there are any queue requests
-		if (queuedRequests.size < 1)
+		//Check if there are any queue requests
+		if (queuedRequests.size() < 1)
 		{//No queued requests
 			dispacherMutex.unlock();
 			threadInsruction* tmp = new threadInsruction();
 			tmp->inst = noJob;
 			tmp->clientSocket = nullptr;
-			tmp->request = nullptr;
 			return tmp;
 		}
 		else
@@ -114,25 +125,38 @@ void httpDispacher::workerThread()
 	//TODO:(create outside but static??)
 
 	//TODO: head parser
+	//TODO: head generator
 	//TODO: webPage
 
 	threadInsruction* tmpInstruction = new threadInsruction;
 	tmpInstruction->clientSocket = nullptr;
-	tmpInstruction->request = nullptr;
 	tmpInstruction->inst = noJob;
 
 	//Loop until close is returned
-	while (tmpInstruction->inst != noJob)
+	while (tmpInstruction->inst != closeTheadWorker)
 	{
 		//check type of instruction
 		if (tmpInstruction->inst == reply)
 		{//Instruction type is "reply to socket"
+			SOCKET* tmpSocket = tmpInstruction->clientSocket;
+			tmpInstruction->clientSocket = nullptr;
+			//TODO: get response (HTTP request)
 
+
+			//Clean up
+			closesocket(*tmpSocket);
+			delete tmpSocket;
+			//tmpInstruction is deleted at the bottom of the loop
 		}
 		else if (tmpInstruction->inst == noJob)
 		{//Instruction type is "no jobs available"
 			Sleep(THREAD_SLEEP_TIME);
+			//tmpInstruction is deleted at the bottom of the loop
 		}
+
+		delete tmpInstruction;
 	}
+
+	delete tmpInstruction;
 }
 

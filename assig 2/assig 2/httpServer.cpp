@@ -5,7 +5,7 @@
 #include <iostream>
 #include "httpDispacher.h"
 
-#pragma comment(lib,"ws2_32.lib") 
+#pragma comment(lib,"ws2_32.lib") //winsock
 
 #define HTTP_PORT 80
 #define SOCKET_BACKLOG 5
@@ -25,7 +25,7 @@ void httpServer::startListening()
 	//Close the thread if its already running
 	stopListening();
 	//start the thread;
-	listenerThread = new std::thread(&listener);
+	listenerThread = new std::thread(&httpServer::listener, this);
 }
 
 void httpServer::stopListening()
@@ -57,6 +57,7 @@ void httpServer::listener()
 	SOCKET* clientSocket;
 	struct sockaddr_in server, client;
 	httpDispacher dispacher;
+	int reciveSize;
 
 	//Initializing winsock
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
@@ -94,10 +95,21 @@ void httpServer::listener()
 		stopThreadMutex.unlock();
 
 		//Listen for any incoming connections
-		listen(ServerSocket, SOCKET_BACKLOG);//TODO: Make non blocking
+		listen(ServerSocket, SOCKET_BACKLOG);
 
 
-
+		clientSocket = new SOCKET();
+		reciveSize = sizeof(struct sockaddr_in);
+		*clientSocket = accept(ServerSocket, (struct sockaddr *)&client, &reciveSize);//TODO: Make non blocking
+		if (*clientSocket == INVALID_SOCKET)
+		{
+			//TODO:  log error here
+			delete clientSocket;
+		}
+		else
+		{
+			dispacher.addThreadInstruction(clientSocket);
+		}
 		stopThreadMutex.lock();
 	}
 	//Succeeding mutex unlock

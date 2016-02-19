@@ -8,11 +8,10 @@
 #include <string>
 #pragma comment(lib,"ws2_32.lib") 
 
-enum instruction{ reply, noJob, close };
+enum instruction{ reply, noJob, closeTheadWorker };
 
 struct threadInsruction
 {
-	std::string* request;
 	SOCKET* clientSocket;
 	instruction inst;
 };
@@ -23,8 +22,10 @@ class httpDispacher
 public:
 	httpDispacher();
 	~httpDispacher();
+	void stopAllThreads();
+	void deleteallRequests();
 	void startThreads();
-	void addThreadInstruction(SOCKET* clientSocket, std::string* clientRequest);
+	void addThreadInstruction(SOCKET* clientSocket);
 private:
 	std::vector<std::thread> workerThreads;
 	std::queue<threadInsruction*> queuedRequests;

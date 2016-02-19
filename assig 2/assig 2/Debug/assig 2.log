@@ -1,18 +1,5 @@
 ﻿  Source.cpp
   httpServer.cpp
-c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpserver.cpp(55): error C3861: 'startThreads': identifier not found
   httpDispacher.cpp
-c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.h(28): error C2039: 'mutex': is not a member of 'std'
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\string(17): note: see declaration of 'std'
-c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.h(28): error C3646: 'dispacherMutex': unknown override specifier
-c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.h(28): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.cpp(37): error C2065: 'dispacherMutex': undeclared identifier
-c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.cpp(37): error C2228: left of '.lock' must have class/struct/union
-  c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.cpp(37): note: type is 'unknown-type'
-c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.cpp(40): error C2065: 'dispacherMutex': undeclared identifier
-c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.cpp(40): error C2228: left of '.unlock' must have class/struct/union
-  c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.cpp(40): note: type is 'unknown-type'
-c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.cpp(52): error C2065: 'dispacherMutex': undeclared identifier
-c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.cpp(52): error C2228: left of '.unlock' must have class/struct/union
-  c:\users\craig\source\repos\uni_se_workshop\assig 2\assig 2\httpdispacher.cpp(52): note: type is 'unknown-type'
   Generating Code...
+  assig 2.vcxproj -> C:\Users\craig\Source\Repos\uni_SE_workshop\assig 2\Debug\assig 2.exe
