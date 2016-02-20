@@ -58,6 +58,7 @@ void httpServer::listener()
 	struct sockaddr_in server, client;
 	httpDispacher dispacher;
 	int reciveSize;
+	u_long serverSocketMode = 1; // nonBlocking mode
 
 	//Initializing winsock
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
@@ -77,6 +78,9 @@ void httpServer::listener()
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
 	server.sin_port = htons(HTTP_PORT);
+	
+	//Set socket to non blocking mode
+	ioctlsocket(ServerSocket, FIONBIO, &serverSocketMode);
 
 	//Bind socket
 	if (bind(ServerSocket, (struct sockaddr*)&server, sizeof(server)) == SOCKET_ERROR)
@@ -87,6 +91,9 @@ void httpServer::listener()
 	//Create worker threads
 	dispacher.startThreads();
 
+	//Set socket to listen for incoming connections
+	listen(ServerSocket, SOCKET_BACKLOG);
+
 	//Loop while running
 	//Preceding mutex lock
 	stopThreadMutex.lock();
@@ -94,8 +101,6 @@ void httpServer::listener()
 	{
 		stopThreadMutex.unlock();
 
-		//Listen for any incoming connections
-		listen(ServerSocket, SOCKET_BACKLOG);
 
 
 		clientSocket = new SOCKET();
@@ -103,8 +108,12 @@ void httpServer::listener()
 		*clientSocket = accept(ServerSocket, (struct sockaddr *)&client, &reciveSize);//TODO: Make non blocking
 		if (*clientSocket == INVALID_SOCKET)
 		{
-			//TODO:  log error here
-			delete clientSocket;
+			auto error = WSAGetLastError();
+			if (error != WSAEWOULDBLOCK) {
+				//TODO:  log error here
+				delete clientSocket;
+			}
+			Sleep(10);
 		}
 		else
 		{
