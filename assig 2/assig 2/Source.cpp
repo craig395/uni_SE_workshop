@@ -4,6 +4,10 @@
 #include <vector>
 #include "userCommand.h"
 
+#if _DEBUG //TODO: remove when finished
+#include <vld.h> //Memory leaks
+#endif
+
 using namespace std;
 
 void main() {
@@ -17,9 +21,9 @@ void main() {
 	
 
 	//Process user input
-	cout << endl << "Command can now be entered, type 'help' for information on the command you can use" << endl;
+	cout << endl << "Commands can now be entered, type 'help' for information on the commands you can use" << endl;
 	string userInput = "";
-	while (userInput != "close")
+	while (userInput != "exit")
 	{
 		cout << "server: ";
 
@@ -38,6 +42,12 @@ void main() {
 			cout << "Starting server..." << endl;
 			server.startListening();
 			cout << "Server successfully started" << endl;
+		}
+		else if (userInput == "help") 
+		{//help command
+			cout << "startServer >> No parameters, Starts the server, restarts it if it is already running" << endl
+				<< "StopServer >> No parameters, Stops the server if it is running" << endl
+				<< "exit >> No parameters, Stops the server if its running and closes the application" << endl;
 		}
 		else if (userInput != "close")
 		{//Unknown command

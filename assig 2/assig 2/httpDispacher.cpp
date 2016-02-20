@@ -22,10 +22,11 @@ void httpDispacher::stopAllThreads()
 	closeThreads = true;
 	for (auto i = workerThreads.begin(); i != workerThreads.end(); i++)
 	{
-		auto& tmp = *i;
-		tmp.join();
-		//TODO: delete the thread
+		i->join();
 	}
+
+	//Delete all items
+	workerThreads.clear();
 }
 
 void httpDispacher::deleteallRequests()
@@ -49,7 +50,7 @@ void httpDispacher::startThreads()
 	//Populate array
 	for (int i = 0; i < WORKER_THREAD_COUNT; i++) 
 	{
-		//Add the thread to the vecotr
+		//Add the thread to the vector
 		workerThreads.push_back(std::thread(&httpDispacher::workerThread, this));
 	}
 }
@@ -62,7 +63,7 @@ void httpDispacher::addThreadInstruction(SOCKET* clientSocket)
 	if (queuedRequests.size() > MAX_QUEUE_SIZE)
 	{//Limit has been met
 		dispacherMutex.unlock();
-		char* message = "Too many connections, try again later\n";//TODO: add http header
+		char* message = "Too many connections, try again later\n";//TODO: add HTTP header
 		send(*clientSocket, message, strlen(message), 0);
 
 		//close connection

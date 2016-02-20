@@ -5,7 +5,7 @@
 #include <iostream>
 #include "httpDispacher.h"
 
-#pragma comment(lib,"ws2_32.lib") //winsock
+#pragma comment(lib,"ws2_32.lib") //win-sock
 
 #define HTTP_PORT 80
 #define SOCKET_BACKLOG 5
@@ -60,7 +60,7 @@ void httpServer::listener()
 	int reciveSize;
 	u_long serverSocketMode = 1; // nonBlocking mode
 
-	//Initializing winsock
+	//Initializing win-sock
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
 	{//Startup failed
 	 //failed with error: WSAGetLastError());
@@ -102,18 +102,19 @@ void httpServer::listener()
 		stopThreadMutex.unlock();
 
 
-
 		clientSocket = new SOCKET();
 		reciveSize = sizeof(struct sockaddr_in);
 		*clientSocket = accept(ServerSocket, (struct sockaddr *)&client, &reciveSize);//TODO: Make non blocking
 		if (*clientSocket == INVALID_SOCKET)
 		{
 			auto error = WSAGetLastError();
+			//Check if its an error or just a non-blocking return
 			if (error != WSAEWOULDBLOCK) {
 				//TODO:  log error here
-				delete clientSocket;
 			}
 			Sleep(10);
+
+			delete clientSocket;
 		}
 		else
 		{
@@ -121,7 +122,7 @@ void httpServer::listener()
 		}
 		stopThreadMutex.lock();
 	}
-	//Succeeding mutex unlock
+	//Succeeding Mutex unlock
 	stopThreadMutex.unlock();
 
 	//Clean up
