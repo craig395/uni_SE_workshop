@@ -2,7 +2,6 @@
 #include "httpServer.h"
 #include <string>
 #include <vector>
-#include "userCommand.h"
 
 #if _DEBUG //TODO: remove when finished
 #include <vld.h> //Memory leaks
