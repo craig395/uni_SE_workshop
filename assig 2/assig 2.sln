@@ -17,6 +17,7 @@ Global
 		{17E431A1-62AB-4173-8B00-9D860D718202}.Debug|x64.Build.0 = Debug|x64
 		{17E431A1-62AB-4173-8B00-9D860D718202}.Debug|x86.ActiveCfg = Debug|Win32
 		{17E431A1-62AB-4173-8B00-9D860D718202}.Debug|x86.Build.0 = Debug|Win32
+		{17E431A1-62AB-4173-8B00-9D860D718202}.Debug|x86.Deploy.0 = Debug|Win32
 		{17E431A1-62AB-4173-8B00-9D860D718202}.Release|x64.ActiveCfg = Release|x64
 		{17E431A1-62AB-4173-8B00-9D860D718202}.Release|x64.Build.0 = Release|x64
 		{17E431A1-62AB-4173-8B00-9D860D718202}.Release|x86.ActiveCfg = Release|Win32
@@ -24,14 +25,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://craig395.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = assig\u00202\\assig\u00202.vcxproj
-		SccProjectName1 = assig\u00202
-		SccLocalPath1 = assig\u00202
 	EndGlobalSection
 EndGlobal
