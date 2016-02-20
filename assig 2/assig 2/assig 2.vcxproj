@@ -152,10 +152,12 @@
   <ItemGroup>
     <ClInclude Include="httpDispacher.h" />
     <ClInclude Include="httpServer.h" />
+    <ClInclude Include="PageController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="httpDispacher.cpp" />
     <ClCompile Include="httpServer.cpp" />
+    <ClCompile Include="PageController.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

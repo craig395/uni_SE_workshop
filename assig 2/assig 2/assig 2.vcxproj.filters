@@ -25,6 +25,12 @@
     <Filter Include="Header Files\Controller">
       <UniqueIdentifier>{80474286-8563-4992-a6a6-ccb5328eb4ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Pages">
+      <UniqueIdentifier>{a96c56c1-d097-40dc-b072-bac39bb693e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pages">
+      <UniqueIdentifier>{b077852f-5fce-493d-b864-6ec2097942c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="httpServer.h">
@@ -32,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="httpDispacher.h">
       <Filter>Header Files\httpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="PageController.h">
+      <Filter>Header Files\Pages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="httpDispacher.cpp">
       <Filter>Source Files\httpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="PageController.cpp">
+      <Filter>Source Files\Pages</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -158,5 +158,7 @@ void httpDispacher::workerThread()
 	}
 
 	delete tmpInstruction;
+	//get next instruction
+	tmpInstruction = getThreadInstruction();
 }
 
