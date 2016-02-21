@@ -142,7 +142,16 @@ void httpDispacher::workerThread()
 			SOCKET* tmpSocket = tmpInstruction->clientSocket;
 			tmpInstruction->clientSocket = nullptr;
 			//TODO: get response (HTTP request)
+			std::string content = "Hello world\n";
+			std::string head = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " + std::to_string(content.size()) + "\r\nConnection: close\r\n\r\n\r\n";
 
+			std::string message = head + content;
+
+			char buffer[1000];
+			int result;
+			result = recv(*tmpSocket, buffer, 1000, 0);
+
+			send(*tmpSocket, message.c_str(), message.length(), 0);
 
 			//Clean up
 			closesocket(*tmpSocket);
