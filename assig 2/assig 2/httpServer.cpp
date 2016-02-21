@@ -111,6 +111,7 @@ void httpServer::listener()
 			//Check if its an error or just a non-blocking return
 			if (error != WSAEWOULDBLOCK) {
 				//TODO:  log error here
+				std::cout << "Error" << std::endl;
 			}
 			Sleep(10);
 
@@ -126,6 +127,7 @@ void httpServer::listener()
 	stopThreadMutex.unlock();
 
 	//Clean up
+	closesocket(ServerSocket);
 }
 
 

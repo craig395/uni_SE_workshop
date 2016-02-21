@@ -1,5 +1,6 @@
 #include "httpDispacher.h"
 #include <iostream>
+#include "PageController.h"
 
 #define WORKER_THREAD_COUNT 10
 #define MAX_QUEUE_SIZE 20
@@ -123,11 +124,11 @@ threadInsruction * httpDispacher::getThreadInstruction()
 void httpDispacher::workerThread()
 {
 	//Preload objects
-	//TODO:(create outside but static??)
 
 	//TODO: head parser
 	//TODO: head generator
 	//TODO: webPage
+	PageController page;
 
 	threadInsruction* tmpInstruction = new threadInsruction;
 	tmpInstruction->clientSocket = nullptr;
@@ -142,14 +143,14 @@ void httpDispacher::workerThread()
 			SOCKET* tmpSocket = tmpInstruction->clientSocket;
 			tmpInstruction->clientSocket = nullptr;
 			//TODO: get response (HTTP request)
-			std::string content = "Hello world\n";
-			std::string head = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " + std::to_string(content.size()) + "\r\nConnection: close\r\n\r\n\r\n";
-
-			std::string message = head + content;
-
 			char buffer[1000];
 			int result;
 			result = recv(*tmpSocket, buffer, 1000, 0);
+
+			std::string content = page.handleRequest("\\");
+			std::string head = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " + std::to_string(content.size() + 2) + "\r\nConnection: close\r\n\r\n\r\n";
+
+			std::string message = head + content;
 
 			send(*tmpSocket, message.c_str(), message.length(), 0);
 
