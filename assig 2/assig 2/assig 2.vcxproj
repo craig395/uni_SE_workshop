@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="HtmlHeadProcessor.h" />
     <ClInclude Include="httpDispacher.h" />
     <ClInclude Include="httpServer.h" />
     <ClInclude Include="PageController.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="PageRequest.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="HtmlHeadProcessor.cpp" />
     <ClCompile Include="httpDispacher.cpp" />
     <ClCompile Include="httpServer.cpp" />
     <ClCompile Include="PageController.cpp" />

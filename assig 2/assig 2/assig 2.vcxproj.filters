@@ -48,6 +48,9 @@
     <ClInclude Include="PageEnum.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
+    <ClInclude Include="HtmlHeadProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="httpServer.cpp">
@@ -64,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="PageRequest.cpp">
       <Filter>Source Files\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="HtmlHeadProcessor.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
