@@ -19,17 +19,20 @@
     <Filter Include="Header Files\httpServer">
       <UniqueIdentifier>{fa132956-743c-4546-bd91-aac872f9ab79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Controller">
-      <UniqueIdentifier>{0357cf7a-b4b0-482f-9e5e-3ae9f71b75f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Controller">
-      <UniqueIdentifier>{80474286-8563-4992-a6a6-ccb5328eb4ce}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Pages">
       <UniqueIdentifier>{a96c56c1-d097-40dc-b072-bac39bb693e1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Pages">
       <UniqueIdentifier>{b077852f-5fce-493d-b864-6ec2097942c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Other">
+      <UniqueIdentifier>{23d38145-cfa4-4dd8-886d-5be70db84222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Other">
+      <UniqueIdentifier>{07fe29c4-a99e-42f5-910a-9efc9b0f16bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pages\source">
+      <UniqueIdentifier>{276672f9-ae42-4b48-aeb2-9211d2f91fcd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +52,16 @@
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
     <ClInclude Include="HtmlHeadProcessor.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\httpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHelper.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemPage.h">
+      <Filter>Header Files\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="Orders.h">
+      <Filter>Header Files\Pages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -69,7 +81,21 @@
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
     <ClCompile Include="HtmlHeadProcessor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\httpServer</Filter>
     </ClCompile>
+    <ClCompile Include="FileHelper.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Orders.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemPage.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="mainTemplate.html">
+      <Filter>Source Files\Pages\source</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

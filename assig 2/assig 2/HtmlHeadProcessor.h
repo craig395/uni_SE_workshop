@@ -24,6 +24,8 @@ public:
 	passedHead pharseHead(string head);
 private:
 	regex urlRegex;
+	regex requestTypeRegex;
 	regex postDataRegex;
+	smatch match;
 };
 

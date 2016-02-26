@@ -153,20 +153,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FileHelper.h" />
     <ClInclude Include="HtmlHeadProcessor.h" />
     <ClInclude Include="httpDispacher.h" />
     <ClInclude Include="httpServer.h" />
+    <ClInclude Include="Orders.h" />
     <ClInclude Include="PageController.h" />
     <ClInclude Include="PageEnum.h" />
     <ClInclude Include="PageRequest.h" />
+    <ClInclude Include="SystemPage.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FileHelper.cpp" />
     <ClCompile Include="HtmlHeadProcessor.cpp" />
     <ClCompile Include="httpDispacher.cpp" />
     <ClCompile Include="httpServer.cpp" />
+    <ClCompile Include="Orders.cpp" />
     <ClCompile Include="PageController.cpp" />
     <ClCompile Include="PageRequest.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="SystemPage.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="mainTemplate.html">
+      <DeploymentContent>true</DeploymentContent>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

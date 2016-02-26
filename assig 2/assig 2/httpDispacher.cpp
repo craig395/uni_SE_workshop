@@ -1,6 +1,7 @@
 #include "httpDispacher.h"
 #include <iostream>
 #include "PageController.h"
+#include "HtmlHeadProcessor.h"
 
 #define WORKER_THREAD_COUNT 10
 #define MAX_QUEUE_SIZE 20
@@ -126,6 +127,7 @@ void httpDispacher::workerThread()
 	//Preload objects
 
 	//TODO: head parser
+	HtmlHeadProcessor headProcessor;
 	//TODO: head generator
 	//TODO: webPage
 	PageController page;
@@ -146,9 +148,11 @@ void httpDispacher::workerThread()
 			char buffer[1000];
 			int result;
 			result = recv(*tmpSocket, buffer, 1000, 0);
+			passedHead httpRequest = headProcessor.pharseHead(buffer);
+			//std::cout << buffer << endl;
 
-			std::string content = page.handleRequest("\\");
-			std::string head = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " + std::to_string(content.size() + 2) + "\r\nConnection: close\r\n\r\n\r\n";
+			std::string content = page.handleRequest(httpRequest);
+			std::string head = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: " + std::to_string(content.size() + 2) + "\r\nConnection: close\r\n\r\n\r\n";
 
 			std::string message = head + content;
 
