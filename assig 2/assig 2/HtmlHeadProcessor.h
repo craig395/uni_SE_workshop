@@ -1,19 +1,15 @@
 #pragma once
 #include <string>
 #include <regex>
-#include <vector>
+#include <map>
 
 using namespace std;
 
-struct postItem {
-	string name;
-	string value;
-};
 
 struct passedHead {
 	string url;
 	string identifier;
-	vector<postItem> postData;
+	map<string, string>postData;
 };
 
 class HtmlHeadProcessor

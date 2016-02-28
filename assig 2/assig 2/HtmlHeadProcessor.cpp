@@ -1,7 +1,7 @@
 #include "HtmlHeadProcessor.h"
 using namespace std::regex_constants;
 
-HtmlHeadProcessor::HtmlHeadProcessor() : urlRegex("^\\s*(?:GET\\s)(.+)(?:\\sHTTP)") , postDataRegex("(?:([A-z%0-9]+)\\s*=\\s*([A-z%0-9]+))") , requestTypeRegex("^\\s*POST\\s")
+HtmlHeadProcessor::HtmlHeadProcessor() : urlRegex("^\\s*(?:GET\\s|POST\\s)(.+)(?:\\sHTTP)") , postDataRegex("(?:([A-z%0-9]+)\\s*=\\s*([A-z%0-9]+))") , requestTypeRegex("^\\s*POST.*")
 {
 	
 }
@@ -27,17 +27,17 @@ passedHead HtmlHeadProcessor::pharseHead(string head)
 	}
 
 	//Check if the request is a GET or a POST
-	if (regex_match(head,requestTypeRegex))
+	if (regex_search(head,requestTypeRegex))
 	{//Is a POST request
 		//Get all the POST data
 		while (std::regex_search(head, match, postDataRegex)) {
-			if (match.size() == 2) {//TODO: tidy up
-				postItem tmp;
-				ssub_match sub_match = match[0];
-				tmp.name = sub_match.str();
-				sub_match = match[1];
-				tmp.value = sub_match.str();
-				processedHead.postData.push_back(tmp);
+			if (match.size() == 3) {//TODO: tidy up
+				ssub_match sub_match = match[1];
+				string name= sub_match.str();
+				sub_match = match[2];
+				string value = sub_match.str();
+				processedHead.postData[name] = value;
+				head = match.suffix().str();
 			}
 		}
 	}

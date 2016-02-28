@@ -75,6 +75,9 @@
     <ClInclude Include="DatabaseHelper.h">
       <Filter>Header Files\database</Filter>
     </ClInclude>
+    <ClInclude Include="ManagementPage.h">
+      <Filter>Header Files\Pages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="httpServer.cpp">
@@ -109,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="DatabaseHelper.cpp">
       <Filter>Source Files\database</Filter>
+    </ClCompile>
+    <ClCompile Include="ManagementPage.cpp">
+      <Filter>Source Files\Pages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

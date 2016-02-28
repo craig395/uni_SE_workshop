@@ -1,8 +1,8 @@
 #include "Orders.h"
+#include <vector>
 
 
-
-Orders::Orders()
+Orders::Orders(DatabaseHelper* dbHelper)
 {
 	pagePath = "/orders";
 
@@ -43,12 +43,17 @@ Orders::Orders()
 
 	//###Time stamp###
 	//Find location to split
-	splitPoint = "<div class=\"orderItem orderItemTitle orderItemRight\"><b>Time Stamp</b></div>";
+	splitPoint = "<b>Timestamp</b></div>";
 	splitLocation = htmlFile.find(splitPoint) + splitPoint.size();
 	//Split into the two string
 	cacheParts[3] = htmlFile.substr(0, splitLocation);
 	cacheParts[4] = htmlFile.substr(splitLocation + 1);
 
+
+	//Set database
+	db = dbHelper;
+
+	string a;
 }
 
 
@@ -59,6 +64,36 @@ Orders::~Orders()
 
 string Orders::runPage(PageRequest request)
 {
-	string a = "<div class=\"orderItem\">003003</div>";
-	return htmlCache + cacheParts[0] + cacheParts[1] + cacheParts[2] + cacheParts[3] + cacheParts[4];
+	//TODO: maybe tidy up a little, mostly comment
+	string listItemStart = "<div class=\"orderItem\">";
+	string listItemEnd = "</div>";
+
+	vector<vector<string>>* results = db->runQuery("SELECT * FROM `Order`;");
+	string orderIdList;
+	string tabIdList;
+	string staffMemberList;
+	string statusList;
+	string timestampList;
+
+	for (auto i = results->begin(); i != results->end(); ++i)
+	{
+		//Fill the columns that we can
+		switch (i->size())
+		{
+		case 5:
+			timestampList += listItemStart + i->at(4) + listItemEnd;
+		case 4:
+			statusList += listItemStart + i->at(3) + listItemEnd;
+		case 3:
+			staffMemberList += listItemStart + i->at(2) + listItemEnd;
+		case 2:
+			tabIdList += listItemStart + i->at(1) + listItemEnd;
+		case 1:
+			orderIdList += listItemStart + i->at(0) + listItemEnd;
+		}
+	}
+
+	delete results;
+
+	return htmlCache + orderIdList + cacheParts[0] + tabIdList + cacheParts[1] + staffMemberList + cacheParts[2] + statusList + cacheParts[3] + timestampList + cacheParts[4];
 }

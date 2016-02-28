@@ -3,7 +3,10 @@
 #include "HtmlHeadProcessor.h"
 #include <string>
 #include "FileHelper.h"
-#include "Orders.h"
+#include "DatabaseHelper.h"
+#include "SystemPage.h"
+#include <map>
+
 
 using namespace std;
 
@@ -21,5 +24,7 @@ private:
 	string styleSheetCache;
 	string templateStartCache;
 	string templateEndCache;
+	DatabaseHelper* dbHelper;
+	map<pageId, SystemPage*> pages;
 };
 

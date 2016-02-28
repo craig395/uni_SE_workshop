@@ -1,5 +1,6 @@
 #include "PageController.h"
-
+#include "Orders.h"
+#include "ManagementPage.h"
 
 
 PageController::PageController()
@@ -18,11 +19,29 @@ PageController::PageController()
 	templateStartCache = templateHTML.substr(0, splitLocation);
 	templateEndCache = templateHTML.substr(splitLocation + 1);
 
+	//Create the DB helper, one instance to prevent multiple reads at once, this object is thread safe
+	dbHelper = new DatabaseHelper("database.db");
+
+	//Fill list of pages
+	pages[order] = new Orders(dbHelper);
+	pages[table] = new ManagementPage(dbHelper);
 }
 
 
 PageController::~PageController()
 {
+	//Delete all pages
+	//TODO: why?????
+	for (auto i = pages.begin(); i != pages.end(); ++i)
+	{
+		delete (*i).second;
+	}
+
+	//delete pages[order];
+	//delete pages[table];
+
+	//Delete the db helper
+	delete dbHelper;
 }
 
 string PageController::handleRequest(passedHead request)
@@ -41,13 +60,18 @@ string PageController::handleRequest(passedHead request)
 	}
 	else
 	{
-		//TODO: Search pages
-		Orders orderPage;
-		if (request.url == orderPage.getPagePath()) {
-			resolvedPage = order;
-		}
-		else {
-			resolvedPage = unknown404;
+		resolvedPage = unknown404;
+
+		//Loop through all pages
+		for (auto i = pages.begin(); i != pages.end(); ++i)
+		{
+			//Check if this page is the one being requested
+			if (request.url == i->second->getPagePath())
+			{//It is
+				resolvedPage = i->first;
+				//No need to continue the loop so exit
+				break;//TODO: as if considered bad in this case
+			}
 		}
 	}
 
@@ -63,7 +87,7 @@ string PageController::handleRequest(passedHead request)
 	}
 	else
 	{//Other page
-		PageRequest request;
+		PageRequest request(request.postData);
 		request.setRequestedPage(resolvedPage);
 
 		pageOutput = runPage(request);
@@ -72,7 +96,7 @@ string PageController::handleRequest(passedHead request)
 
 	//Merge with template if needed
 	//TODO: above
-	if (request.postData.size() == 0)
+	if (request.postData.find("ajaxFlag") == request.postData.end())
 	{//Encapsulate in template
 		return templateStartCache + pageOutput + templateEndCache;
 	}
@@ -85,13 +109,12 @@ string PageController::handleRequest(passedHead request)
 
 string PageController::runPage(PageRequest request)
 {
-	Orders orderPage;
-	if (request.getRequestedPage() == order)
-	{
-		return orderPage.runPage(request);
+	if (request.getRequestedPage() != index) {
+		return pages[request.getRequestedPage()]->runPage(request);
 	}
-	else {
-		return "Other Page";
+	else
+	{
+		return "Index page";
 	}
 }
 
