@@ -34,6 +34,12 @@
     <Filter Include="Source Files\Pages\source">
       <UniqueIdentifier>{276672f9-ae42-4b48-aeb2-9211d2f91fcd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\database">
+      <UniqueIdentifier>{5da4f614-82f5-4e38-8ea8-181a253fe2f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\database">
+      <UniqueIdentifier>{7dbbebdb-af0a-4da4-9093-74aceee25df4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="httpServer.h">
@@ -62,6 +68,12 @@
     </ClInclude>
     <ClInclude Include="Orders.h">
       <Filter>Header Files\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3.h">
+      <Filter>Header Files\database</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseHelper.h">
+      <Filter>Header Files\database</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -92,10 +104,21 @@
     <ClCompile Include="SystemPage.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
+    <ClCompile Include="sqlite3.c">
+      <Filter>Source Files\database</Filter>
+    </ClCompile>
+    <ClCompile Include="DatabaseHelper.cpp">
+      <Filter>Source Files\database</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="mainTemplate.html">
       <Filter>Source Files\Pages\source</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="database.db">
+      <Filter>Header Files\database</Filter>
+    </None>
   </ItemGroup>
 </Project>
