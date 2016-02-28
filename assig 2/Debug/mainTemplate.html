@@ -1,0 +1,49 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+	<link href='https://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
+	<script>
+	window.onload = setCurrentPage;
+		
+	function setCurrentPage(){
+		var pageLinks = document.getElementsByClassName("pageLinkNow");
+		for (var i = 0; i < pageLinks.length; ++i) {
+    		pageLinks[i].className = "pageLink";
+		}
+		
+		var pageLink = document.getElementById("index");
+		
+		switch(window.location.pathname){
+			case "/orders":
+				pageLink = document.getElementById("ordersPage");
+		}
+		
+		pageLink.className = "pageLinkNow";
+	}
+		
+	function jumpPage(path){
+		//document.title = path;
+		window.location.href = path; 
+	}
+	</script>
+</head>
+<body>
+	<div class="sideBar">
+		<div class="titleText">
+			Restaurant Manager 2000
+		</div>
+	
+		<div id="pageLinks">
+			<div onclick="jumpPage('/')" id="index" class="pageLink">
+				Index
+			</div>
+			<div onclick="jumpPage('/orders')" id="ordersPage" class="pageLink">
+				Orders
+			</div>
+		</div>
+	</div>
+	<div class="content">
+	
+	</div>
+</body>
+</html>
