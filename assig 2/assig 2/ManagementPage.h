@@ -10,6 +10,7 @@ public:
 protected:
 	virtual string generateList();
 	virtual string prepareForm(int id);
+	virtual bool updateRecord(PageRequest request);
 private:
 	string listCache[4];
 };

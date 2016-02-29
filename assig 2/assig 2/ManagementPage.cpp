@@ -151,3 +151,27 @@ string ManagementPage::prepareForm(int id)
 	return "<form action = \"\" method = \"post\"><fieldset><legend>Table Details</legend><label>Number of seats</label><input name = \"seats\"  type = \"number\" min = \"1\" value = \"" + seats + "\" required>" + 
 		"<input type=\"submit\" value=\"Save\"></fieldset></form>";
 }
+
+bool ManagementPage::updateRecord(PageRequest request)
+{
+	//make sure that all required data is included
+	if (request.getPostData("tableSeats") == "")
+	{
+		return false;
+	}
+
+	//Check if update or insert(ID is provided or not)
+	if (request.getPostData("tableID") != "")
+	{//Update record, ID provided
+		//Prepare parameters
+		vector<BindParam> params;
+		params.push_back(BindParam(intType, request.getPostData("tableSeats")));
+		params.push_back(BindParam(intType, request.getPostData("tableID")));
+	}
+	else
+	{//Create new record, No ID provided
+		//TODO: this
+	}
+
+	return false;
+}

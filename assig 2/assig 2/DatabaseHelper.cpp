@@ -22,6 +22,7 @@ vector<vector<string>>* DatabaseHelper::runQuery(string query)
 {
 	sqlite3_stmt* dbQuery = nullptr;
 
+	//Prepare connection
 	if(SQLITE_OK != sqlite3_prepare_v2(dbConnection, query.c_str(), -1, &dbQuery, nullptr))
 	{
 		sqlite3_errmsg(dbConnection);//TODO: output this string to the error log
@@ -35,7 +36,7 @@ vector<vector<string>>* DatabaseHelper::runQuery(string query)
 		vector<string> tmp;
 		for (int i = 0; i < sqlite3_data_count(dbQuery); i++)
 		{
-			//Const unsighned char* to string, then pushed into the vector
+			//Constant unsigned char* to string, then pushed into the vector
 			tmp.push_back(reinterpret_cast<const char*>(sqlite3_column_text(dbQuery, i)));
 		}
 
@@ -45,4 +46,37 @@ vector<vector<string>>* DatabaseHelper::runQuery(string query)
 	sqlite3_finalize(dbQuery);
 
 	return returnValue;
+}
+
+void DatabaseHelper::runNoReturnQuery(string query, vector<BindParam> params)
+{
+	sqlite3_stmt* dbQuery = nullptr;
+
+	//Prepare connection
+	if (SQLITE_OK != sqlite3_prepare_v2(dbConnection, query.c_str(), -1, &dbQuery, nullptr))
+	{
+		sqlite3_errmsg(dbConnection);//TODO: output this string to the error log
+		return;
+	}
+
+	//Bind parameters
+	int i = 0;
+	for (auto itr = params.begin(); itr != params.end(); ++itr) 
+	{
+		i++;
+		if (itr->typeOfData == textType)
+		{
+			sqlite3_bind_text(dbQuery, i, itr->value.c_str(), -1, SQLITE_TRANSIENT);
+		}
+		else
+		{
+			//convert string to int
+			int tmp = atoi(itr->value.c_str());//TODO: Check for errors
+			sqlite3_bind_int(dbQuery, i, tmp);
+		}
+	}
+
+	//run query and finalize
+	sqlite3_step(dbQuery);
+	sqlite3_finalize(dbQuery);
 }
