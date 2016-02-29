@@ -7,11 +7,11 @@ public:
 	ManagementPage(DatabaseHelper* dbHelper);
 	~ManagementPage();
 	string runPage(PageRequest request);
-protected:
-	virtual string generateList();
-	virtual string prepareForm(int id);
-	virtual bool updateRecord(PageRequest request);
 private:
+	string generateList();
+	string prepareForm(string id);
+	bool updateRecord(PageRequest request);
+	void removeRecord(string id);
 	string listCache[4];
 };
 

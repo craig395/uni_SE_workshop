@@ -1,6 +1,6 @@
 #include "ManagementPage.h"
 #include <vector>
-
+#include <regex>
 
 ManagementPage::ManagementPage(DatabaseHelper* dbHelper)
 {
@@ -47,6 +47,9 @@ ManagementPage::~ManagementPage()
 
 string ManagementPage::runPage(PageRequest request)
 {
+	//Prepare regex match
+	const regex numberCheck("^-?\\d+$");
+
 	//Check if view item, delete item or view items
 	if ((request.getPostData("flag") != "delete") && (request.getPostData("flag") != "form"))
 	{//View items
@@ -57,18 +60,39 @@ string ManagementPage::runPage(PageRequest request)
 	else if (request.getPostData("flag") == "delete")
 	{//Remove item
 
+		//Make sure the table ID is provide and that its a number
+		if (regex_match(request.getPostData("tableID"), numberCheck))
+		{//ID is provided and ok
+			removeRecord(request.getPostData("tableID"));
+		}
+
+		return generateList();
 	}
 	else
 	{//Edit/view/create item
-		//TODO: check if posted data
-		//TODO: check if there is an ID
-		if (true)
+
+		if (!regex_match(request.getPostData("tableID"), numberCheck))
 		{//No ID
-			return prepareForm(-1);
+			return prepareForm("-1");
 		}
 		else
 		{//ID provided
-			//TODO: this
+			//Check for form submission
+			if (request.getPostData("tableSeats") != "")
+			{//Form submission
+				if (updateRecord(request))
+				{//Update/create OK
+					return generateList();
+				}
+				else
+				{//Update/create Failed
+					return "<b>Faild to update/create object</b>" + prepareForm(request.getPostData("tableID"));
+				}
+			}
+			else
+			{//No form submission
+				return prepareForm(request.getPostData("tableID"));
+			}
 		}
 	}
 	return string();
@@ -84,7 +108,8 @@ string ManagementPage::generateList()
 	string statusColum;
 
 	//Div used to cover output
-	const string listItemStart = "<div onclick=\"post('/manage-table',{flag : 'form'}); \" class=\"orderItem manageItem\">";
+	const string listItemStart = "<div onclick=\"post('/manage-table',{flag : 'form', tableID : '";
+	const string listItemStart2 = "'}); \" class=\"orderItem manageItem\">";
 	const string listItemEnd = "</div>";
 
 
@@ -99,11 +124,11 @@ string ManagementPage::generateList()
 			switch (i->size())
 			{
 			case 3:
-				statusColum += listItemStart + i->at(2) + listItemEnd;
+				statusColum += listItemStart + i->at(0) + listItemStart2 + i->at(2) + listItemEnd;
 			case 2:
-				seatsColum += listItemStart + i->at(1) + listItemEnd;
+				seatsColum += listItemStart + i->at(0) + listItemStart2 + i->at(1) + listItemEnd;
 			case 1:
-				tableNumberColum += listItemStart + i->at(0) + listItemEnd;
+				tableNumberColum += listItemStart + i->at(0) + listItemStart2 + i->at(0) + listItemEnd;
 			}
 		}
 
@@ -121,13 +146,14 @@ string ManagementPage::generateList()
 	return output;
 }
 
-string ManagementPage::prepareForm(int id)
+string ManagementPage::prepareForm(string id)
 {
 	string seats = "1";
 	string hiddenField;
+	string hiddenField2;
 
 	//Fill form or not
-	if (id != -1)
+	if (id != "-1")
 	{//Fill form
 		//Get data
 		vector<vector<string>>* result = db->runQuery("SELECT `Seats` FROM `Table` WHERE `Table_Number` = " + id);//TODO: watch for injection
@@ -136,20 +162,36 @@ string ManagementPage::prepareForm(int id)
 		if ((result->size() > 0) && ((*result)[0].size() > 0))
 		{//There are results and a column
 			seats = (*result)[0][0];
-			hiddenField = "<input type=\"hidden\" name=\"id\" value=\"" + to_string(id) + "\">";
+			hiddenField = "<input type=\"hidden\" name=\"tableID\" value=\"" + id + "\">";
 		}
 		else
 		{//ID not found
-			hiddenField = "<input type=\"hidden\" name=\"id\" value=\"-1\">";
+			hiddenField = "<input type=\"hidden\" name=\"tableID\" value=\"-1\">";
+			id = "-1";
 		}
+
+		delete result;
 	}
 	else
 	{
-		hiddenField = "<input type=\"hidden\" name=\"id\" value=\"-1\">";
+		hiddenField = "<input type=\"hidden\" name=\"tableID\" value=\"-1\">";
 	}
 
-	return "<form action = \"\" method = \"post\"><fieldset><legend>Table Details</legend><label>Number of seats</label><input name = \"seats\"  type = \"number\" min = \"1\" value = \"" + seats + "\" required>" + 
+	hiddenField2 = "<input type=\"hidden\" name=\"flag\" value=\"form\">";
+
+	string output = "<form action = \"\" method = \"post\"><fieldset><legend>Table Details</legend>" + hiddenField + hiddenField2 + "<label>Number of seats</label><input name = \"tableSeats\"  type = \"number\" min = \"1\" value = \"" + seats + "\" required>" +
 		"<input type=\"submit\" value=\"Save\"></fieldset></form>";
+
+	if (id != "-1") 
+	{//Not a create new form
+		hiddenField2 = "<input type=\"hidden\" name=\"flag\" value=\"delete\">";
+
+		//Add Delete button to the output
+		output += "<form action = \"\" method = \"post\"><fieldset><legend>Delete Record</legend>" + hiddenField + hiddenField2 +
+			"<input type=\"submit\" value=\"Delete\"></fieldset></form>";
+	} 
+		
+		return output;
 }
 
 bool ManagementPage::updateRecord(PageRequest request)
@@ -161,17 +203,38 @@ bool ManagementPage::updateRecord(PageRequest request)
 	}
 
 	//Check if update or insert(ID is provided or not)
-	if (request.getPostData("tableID") != "")
+	if (request.getPostData("tableID") != "-1")
 	{//Update record, ID provided
 		//Prepare parameters
 		vector<BindParam> params;
 		params.push_back(BindParam(intType, request.getPostData("tableSeats")));
 		params.push_back(BindParam(intType, request.getPostData("tableID")));
+
+		//Run query
+		db->runNoReturnQuery("UPDATE `Table` SET `Seats` = ? WHERE `Table_Number` = ?", params);
+
+		return true;
 	}
 	else
 	{//Create new record, No ID provided
-		//TODO: this
-	}
+	 //Prepare parameters
+		vector<BindParam> params;
+		params.push_back(BindParam(intType, request.getPostData("tableSeats")));
+		params.push_back(BindParam(textType, "ready"));
 
-	return false;
+		//Run query
+		db->runNoReturnQuery("INSERT INTO `Table` (`Seats`, `Status`) VALUES (? , ?)", params);
+
+		return true;
+	}
+}
+
+void ManagementPage::removeRecord(string id)
+{
+	//Prepare parameters
+	vector<BindParam> params;
+	params.push_back(BindParam(intType, id));
+
+	//Run query
+	db->runNoReturnQuery("DELETE FROM `Table` WHERE `Table_Number` = ?;", params);
 }

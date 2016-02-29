@@ -1,7 +1,7 @@
 #include "HtmlHeadProcessor.h"
 using namespace std::regex_constants;
 
-HtmlHeadProcessor::HtmlHeadProcessor() : urlRegex("^\\s*(?:GET\\s|POST\\s)(.+)(?:\\sHTTP)") , postDataRegex("(?:([A-z%0-9]+)\\s*=\\s*([A-z%0-9]+))") , requestTypeRegex("^\\s*POST.*")
+HtmlHeadProcessor::HtmlHeadProcessor() : urlRegex("^\\s*(?:GET\\s|POST\\s)(.+)(?:\\sHTTP)") , postDataRegex("(?:([A-z%0-9]+)\\s*=\\s*([A-z%0-9-]+))") , requestTypeRegex("^\\s*POST.*")
 {
 	
 }

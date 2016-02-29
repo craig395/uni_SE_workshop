@@ -43,12 +43,14 @@ vector<vector<string>>* DatabaseHelper::runQuery(string query)
 		returnValue->push_back(tmp);
 	}
 
-	sqlite3_finalize(dbQuery);
+
+	//Cleanup
+	sqlite3_finalize(dbQuery);//this deletes the pointer
 
 	return returnValue;
 }
 
-void DatabaseHelper::runNoReturnQuery(string query, vector<BindParam> params)
+void DatabaseHelper::runNoReturnQuery(string query, vector<BindParam> params)//TODO: change to return true or false based on success or failure
 {
 	sqlite3_stmt* dbQuery = nullptr;
 
@@ -76,7 +78,7 @@ void DatabaseHelper::runNoReturnQuery(string query, vector<BindParam> params)
 		}
 	}
 
-	//run query and finalize
+	//run query and clean up
 	sqlite3_step(dbQuery);
-	sqlite3_finalize(dbQuery);
+	sqlite3_finalize(dbQuery);//this deletes the pointer
 }
