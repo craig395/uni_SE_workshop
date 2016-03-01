@@ -6,6 +6,7 @@ enum pageId
 	order,
 	table,
 	findTable,
+	openTab,
 	styleSheet,
 	unknown404
 };

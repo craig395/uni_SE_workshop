@@ -2,6 +2,7 @@
 #include "Orders.h"
 #include "ManagementPage.h"
 #include "FindTable.h"
+#include "OpenTab.h"
 
 PageController::PageController()
 {
@@ -26,6 +27,7 @@ PageController::PageController()
 	pages[order] = new Orders(dbHelper);
 	pages[table] = new ManagementPage(dbHelper);
 	pages[findTable] = new FindTable(dbHelper);
+	pages[openTab] = new OpenTab(dbHelper);
 }
 
 

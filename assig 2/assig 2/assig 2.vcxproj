@@ -160,6 +160,7 @@
     <ClInclude Include="httpDispacher.h" />
     <ClInclude Include="httpServer.h" />
     <ClInclude Include="ManagementPage.h" />
+    <ClInclude Include="OpenTab.h" />
     <ClInclude Include="Orders.h" />
     <ClInclude Include="PageController.h" />
     <ClInclude Include="PageEnum.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="httpDispacher.cpp" />
     <ClCompile Include="httpServer.cpp" />
     <ClCompile Include="ManagementPage.cpp" />
+    <ClCompile Include="OpenTab.cpp" />
     <ClCompile Include="Orders.cpp" />
     <ClCompile Include="PageController.cpp" />
     <ClCompile Include="PageRequest.cpp" />

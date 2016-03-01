@@ -102,6 +102,7 @@ string FindTable::runPage(PageRequest request)
 	}
 	else
 	{//Nothing provided
+
 		return htmlCache;
 	}
 	return string();
