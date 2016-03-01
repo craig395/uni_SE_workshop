@@ -156,7 +156,9 @@ string ManagementPage::prepareForm(string id)
 	if (id != "-1")
 	{//Fill form
 		//Get data
-		vector<vector<string>>* result = db->runQuery("SELECT `Seats` FROM `Table` WHERE `Table_Number` = " + id);//TODO: watch for injection
+		vector<BindParam> params;
+		params.push_back(BindParam(intType, id));
+		vector<vector<string>>* result = db->runQuery("SELECT `Seats` FROM `Table` WHERE `Table_Number` = ?", params);
 
 		//Fill strings
 		if ((result->size() > 0) && ((*result)[0].size() > 0))

@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="DatabaseHelper.h" />
     <ClInclude Include="FileHelper.h" />
+    <ClInclude Include="FindTable.h" />
     <ClInclude Include="HtmlHeadProcessor.h" />
     <ClInclude Include="httpDispacher.h" />
     <ClInclude Include="httpServer.h" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClCompile Include="DatabaseHelper.cpp" />
     <ClCompile Include="FileHelper.cpp" />
+    <ClCompile Include="FindTable.cpp" />
     <ClCompile Include="HtmlHeadProcessor.cpp" />
     <ClCompile Include="httpDispacher.cpp" />
     <ClCompile Include="httpServer.cpp" />

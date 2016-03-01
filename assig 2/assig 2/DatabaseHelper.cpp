@@ -18,7 +18,7 @@ DatabaseHelper::~DatabaseHelper()
 	sqlite3_close(dbConnection);
 }
 
-vector<vector<string>>* DatabaseHelper::runQuery(string query)
+vector<vector<string>>* DatabaseHelper::runQuery(string query, vector<BindParam> params)
 {
 	sqlite3_stmt* dbQuery = nullptr;
 
@@ -27,6 +27,23 @@ vector<vector<string>>* DatabaseHelper::runQuery(string query)
 	{
 		sqlite3_errmsg(dbConnection);//TODO: output this string to the error log
 		return nullptr;
+	}
+
+	//Bind parameters
+	int i = 0;
+	for (auto itr = params.begin(); itr != params.end(); ++itr)
+	{
+		i++;
+		if (itr->typeOfData == textType)
+		{
+			sqlite3_bind_text(dbQuery, i, itr->value.c_str(), -1, SQLITE_TRANSIENT);
+		}
+		else
+		{
+			//convert string to int
+			int tmp = atoi(itr->value.c_str());//TODO: Check for errors
+			sqlite3_bind_int(dbQuery, i, tmp);
+		}
 	}
 
 	vector<vector<string>>* returnValue = new vector<vector<string>>();

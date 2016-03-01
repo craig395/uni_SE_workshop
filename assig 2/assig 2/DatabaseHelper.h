@@ -21,7 +21,8 @@ class DatabaseHelper
 public:
 	DatabaseHelper(string databasePath);
 	~DatabaseHelper();
-	vector<vector<string>>* runQuery(string query);
+	vector<vector<string>>* runQuery(string query) { return runQuery(query, vector<BindParam>()); }//Run  query with no parameters(vectors don't like default constructors unless there a pointer)
+	vector<vector<string>>* runQuery(string query, vector<BindParam> params);
 	void runNoReturnQuery(string query, vector<BindParam> params);
 private:
 	mutex dbMutex;

@@ -78,6 +78,9 @@
     <ClInclude Include="ManagementPage.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
+    <ClInclude Include="FindTable.h">
+      <Filter>Header Files\Pages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="httpServer.cpp">
@@ -114,6 +117,9 @@
       <Filter>Source Files\database</Filter>
     </ClCompile>
     <ClCompile Include="ManagementPage.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="FindTable.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
   </ItemGroup>

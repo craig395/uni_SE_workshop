@@ -13,5 +13,6 @@ private:
 	bool updateRecord(PageRequest request);
 	void removeRecord(string id);
 	string listCache[4];
+
 };
 

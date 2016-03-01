@@ -1,7 +1,7 @@
 #include "PageController.h"
 #include "Orders.h"
 #include "ManagementPage.h"
-
+#include "FindTable.h"
 
 PageController::PageController()
 {
@@ -25,6 +25,7 @@ PageController::PageController()
 	//Fill list of pages
 	pages[order] = new Orders(dbHelper);
 	pages[table] = new ManagementPage(dbHelper);
+	pages[findTable] = new FindTable(dbHelper);
 }
 
 
