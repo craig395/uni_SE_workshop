@@ -6,6 +6,7 @@
 #include "CloseTab.h"
 #include "SetTableStatus.h"
 #include "TakeOrder.h"
+#include "MakePayment.h"
 
 PageController::PageController()
 {
@@ -34,6 +35,7 @@ PageController::PageController()
 	pages[closeTabID] = new CloseTab(dbHelper);
 	pages[setTableStatusID] = new SetTableStatus(dbHelper);
 	pages[takeOrderID] = new TakeOrder(dbHelper);
+	pages[makePaymentID] = new MakePayment(dbHelper);
 }
 
 

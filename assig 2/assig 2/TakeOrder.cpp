@@ -94,7 +94,6 @@ string TakeOrder::runPage(PageRequest request)
 
 string TakeOrder::generateTabSelectionForm(vector<vector<string>>* tabs)
 {
-	{
 		//Check if there are results
 		if (tabs->size() < 1)
 		{//No tabs
@@ -117,12 +116,13 @@ string TakeOrder::generateTabSelectionForm(vector<vector<string>>* tabs)
 			}
 		}
 		output += "</select><br>";//End of selection
+
+		output += "<input type=\"submit\" value=\"Submit\">";
 		
 		output += "</fieldset></form>";
 
 		delete tabs;
 		return output;
-	}
 }
 
 string TakeOrder::createOrder(string tabID)

@@ -93,6 +93,9 @@
     <ClInclude Include="TakeOrder.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
+    <ClInclude Include="MakePayment.h">
+      <Filter>Header Files\Pages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="httpServer.cpp">
@@ -144,6 +147,9 @@
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
     <ClCompile Include="TakeOrder.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="MakePayment.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
   </ItemGroup>

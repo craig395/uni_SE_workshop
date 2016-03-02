@@ -35,6 +35,9 @@
 			case "/take-order":
 				pageLink = document.getElementById("takeOrder");
 				break;
+			case "/Make-Payment":
+				pageLink = document.getElementById("makePayment");
+				break;
 		}
 		
 		pageLink.className = "pageLinkNow";
@@ -103,6 +106,9 @@
 			</div>
 			<div onclick="jumpPage('/take-order')" id="takeOrder" class="pageLink">
 				Take Order
+			</div>
+			<div onclick="jumpPage('/Make-Payment')" id="makePayment" class="pageLink">
+				Make Payment
 			</div>
 		</div>
 	</div>

@@ -41,7 +41,7 @@ vector<vector<string>>* DatabaseHelper::runQuery(string query, vector<BindParam>
 		else
 		{
 			//convert string to int
-			int tmp = atoi(itr->value.c_str());//TODO: Check for errors
+			int tmp = atoi(itr->value.c_str());
 			sqlite3_bind_int(dbQuery, i, tmp);
 		}
 	}

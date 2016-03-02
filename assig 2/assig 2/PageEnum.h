@@ -9,6 +9,7 @@ enum pageId
 	openTabID,
 	closeTabID,
 	takeOrderID,
+	makePaymentID,
 	setTableStatusID,
 	styleSheetID,
 	unknown404
