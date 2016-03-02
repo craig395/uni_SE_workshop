@@ -4,6 +4,7 @@
 #include "FindTable.h"
 #include "OpenTab.h"
 #include "CloseTab.h"
+#include "SetTableStatus.h"
 
 PageController::PageController()
 {
@@ -30,6 +31,7 @@ PageController::PageController()
 	pages[findTableID] = new FindTable(dbHelper);
 	pages[openTabID] = new OpenTab(dbHelper);
 	pages[closeTabID] = new CloseTab(dbHelper);
+	pages[setTableStatusID] = new SetTableStatus(dbHelper);
 }
 
 

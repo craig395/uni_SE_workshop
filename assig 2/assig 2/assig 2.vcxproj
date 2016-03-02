@@ -166,6 +166,7 @@
     <ClInclude Include="PageController.h" />
     <ClInclude Include="PageEnum.h" />
     <ClInclude Include="PageRequest.h" />
+    <ClInclude Include="SetTableStatus.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="SystemPage.h" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <ClCompile Include="Orders.cpp" />
     <ClCompile Include="PageController.cpp" />
     <ClCompile Include="PageRequest.cpp" />
+    <ClCompile Include="SetTableStatus.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="SystemPage.cpp" />

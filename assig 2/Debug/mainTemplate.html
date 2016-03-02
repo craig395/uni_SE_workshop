@@ -29,6 +29,9 @@
 			case "/close-tab":
 				pageLink = document.getElementById("closeTab");
 				break;
+			case "/set-table-status":
+				pageLink = document.getElementById("setTableStatus");
+				break;
 		}
 		
 		pageLink.className = "pageLinkNow";
@@ -91,6 +94,9 @@
 			</div>
 			<div onclick="jumpPage('/close-tab')" id="closeTab" class="pageLink">
 				Close Tab
+			</div>
+			<div onclick="jumpPage('/set-table-status')" id="setTableStatus" class="pageLink">
+				Set Table Status
 			</div>
 		</div>
 	</div>

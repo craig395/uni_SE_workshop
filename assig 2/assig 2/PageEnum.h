@@ -8,6 +8,7 @@ enum pageId
 	findTableID,
 	openTabID,
 	closeTabID,
+	setTableStatusID,
 	styleSheetID,
 	unknown404
 };

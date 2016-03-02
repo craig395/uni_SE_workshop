@@ -66,5 +66,4 @@ string CloseTab::runPage(PageRequest request)
 		delete results;
 		return htmlCache + formPart;
 	}
-	return string();
 }

@@ -87,6 +87,9 @@
     <ClInclude Include="CloseTab.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
+    <ClInclude Include="SetTableStatus.h">
+      <Filter>Header Files\Pages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="httpServer.cpp">
@@ -132,6 +135,9 @@
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
     <ClCompile Include="CloseTab.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="SetTableStatus.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
   </ItemGroup>

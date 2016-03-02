@@ -1,2 +1,14 @@
-﻿  CloseTab.cpp
+﻿  SetTableStatus.cpp
+  PageController.cpp
+  CloseTab.cpp
+  Generating Code...
+  Compiling...
+  SystemPage.cpp
+  PageRequest.cpp
+  Orders.cpp
+  OpenTab.cpp
+  ManagementPage.cpp
+  httpDispacher.cpp
+  FindTable.cpp
+  Generating Code...
   assig 2.vcxproj -> C:\Users\craig\Source\Repos\uni_SE_workshop\assig 2\Debug\assig 2.exe
