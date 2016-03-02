@@ -26,6 +26,9 @@
 			case "/open-tab":
 				pageLink = document.getElementById("openTab");
 				break;
+			case "/close-tab":
+				pageLink = document.getElementById("closeTab");
+				break;
 		}
 		
 		pageLink.className = "pageLinkNow";
@@ -85,6 +88,9 @@
 			</div>
 			<div onclick="jumpPage('/open-tab')" id="openTab" class="pageLink">
 				Open Tab
+			</div>
+			<div onclick="jumpPage('/close-tab')" id="closeTab" class="pageLink">
+				Close Tab
 			</div>
 		</div>
 	</div>

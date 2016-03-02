@@ -2,11 +2,12 @@
 
 enum pageId
 {
-	index,
-	order,
-	table,
-	findTable,
-	openTab,
-	styleSheet,
+	indexID,
+	orderID,
+	tableID,
+	findTableID,
+	openTabID,
+	closeTabID,
+	styleSheetID,
 	unknown404
 };

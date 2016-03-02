@@ -15,7 +15,7 @@ public:
 	
 
 private:
-	pageId requestedPage = index;
+	pageId requestedPage = indexID;
 	map<string, string> postData;
 	//TODO: user type
 };

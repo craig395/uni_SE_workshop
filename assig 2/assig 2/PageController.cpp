@@ -3,6 +3,7 @@
 #include "ManagementPage.h"
 #include "FindTable.h"
 #include "OpenTab.h"
+#include "CloseTab.h"
 
 PageController::PageController()
 {
@@ -24,10 +25,11 @@ PageController::PageController()
 	dbHelper = new DatabaseHelper("database.db");
 
 	//Fill list of pages
-	pages[order] = new Orders(dbHelper);
-	pages[table] = new ManagementPage(dbHelper);
-	pages[findTable] = new FindTable(dbHelper);
-	pages[openTab] = new OpenTab(dbHelper);
+	pages[orderID] = new Orders(dbHelper);
+	pages[tableID] = new ManagementPage(dbHelper);
+	pages[findTableID] = new FindTable(dbHelper);
+	pages[openTabID] = new OpenTab(dbHelper);
+	pages[closeTabID] = new CloseTab(dbHelper);
 }
 
 
@@ -56,10 +58,10 @@ string PageController::handleRequest(passedHead request)
 	string pageOutput;
 	if (request.url == "/")
 	{
-		resolvedPage = index;
+		resolvedPage = indexID;
 	}else if (request.url == "/mystyle.css")
 	{
-		resolvedPage = styleSheet;
+		resolvedPage = styleSheetID;
 	}
 	else
 	{
@@ -84,7 +86,7 @@ string PageController::handleRequest(passedHead request)
 	{//404 page
 
 	}
-	else if (resolvedPage == styleSheet)
+	else if (resolvedPage == styleSheetID)
 	{//Style sheet
 		return styleSheetCache;
 	}
@@ -112,7 +114,7 @@ string PageController::handleRequest(passedHead request)
 
 string PageController::runPage(PageRequest request)
 {
-	if (request.getRequestedPage() != index) {
+	if (request.getRequestedPage() != indexID) {
 		return pages[request.getRequestedPage()]->runPage(request);
 	}
 	else

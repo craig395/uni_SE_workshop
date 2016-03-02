@@ -1,7 +1,5 @@
 #include "OpenTab.h"
 #include <regex>
-#include <ctime>
-#include <time.h>
 
 OpenTab::OpenTab(DatabaseHelper* dbHelper)
 {
@@ -24,6 +22,7 @@ string OpenTab::runPage(PageRequest request)
 	if ((request.getPostData("createTabName") != "") && (regex_match(request.getPostData("createTabGuests"), numberCheck)) && (regex_match(request.getPostData("createTabTable"), numberCheck)))
 	{//Form submission
 		//Add tab to database
+		//Create time stamp
 		time_t now = time(0);
 		struct tm timeDate;
 		localtime_s(&timeDate, &now);
@@ -37,7 +36,7 @@ string OpenTab::runPage(PageRequest request)
 		//TODO: get staff ID
 		params.push_back(BindParam(intType, "1"));//Staff_ID
 
-		db->runNoReturnQuery("INSERT INTO `Tab` (`Table_Number`, `Opened_Timestamp`, `Number_Of_Guests`, `Name`, `Staff_ID`) VALUES (? , ? , ? , ?, ?)", params);
+		db->runNoReturnQuery("INSERT INTO `Tab` (`Table_Number`, `Opened_Timestamp`, `Number_Of_Guests`, `Name`, `Staff_ID`, `Closed_Timestamp`) VALUES (? , ? , ? , ?, ?, '')", params);
 
 		return "<center><h>Form Submitted</h></center>";
 	}

@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CloseTab.h" />
     <ClInclude Include="DatabaseHelper.h" />
     <ClInclude Include="FileHelper.h" />
     <ClInclude Include="FindTable.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="SystemPage.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CloseTab.cpp" />
     <ClCompile Include="DatabaseHelper.cpp" />
     <ClCompile Include="FileHelper.cpp" />
     <ClCompile Include="FindTable.cpp" />
