@@ -32,6 +32,9 @@
 			case "/set-table-status":
 				pageLink = document.getElementById("setTableStatus");
 				break;
+			case "/take-order":
+				pageLink = document.getElementById("takeOrder");
+				break;
 		}
 		
 		pageLink.className = "pageLinkNow";
@@ -97,6 +100,9 @@
 			</div>
 			<div onclick="jumpPage('/set-table-status')" id="setTableStatus" class="pageLink">
 				Set Table Status
+			</div>
+			<div onclick="jumpPage('/take-order')" id="takeOrder" class="pageLink">
+				Take Order
 			</div>
 		</div>
 	</div>

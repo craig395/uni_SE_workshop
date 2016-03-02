@@ -169,6 +169,7 @@
     <ClInclude Include="SetTableStatus.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="SystemPage.h" />
+    <ClInclude Include="TakeOrder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CloseTab.cpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="SystemPage.cpp" />
+    <ClCompile Include="TakeOrder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="mainTemplate.html">
