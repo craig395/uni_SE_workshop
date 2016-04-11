@@ -33,8 +33,8 @@ string OpenTab::runPage(PageRequest request)
 		params.push_back(BindParam(textType, timeStamp));//Opened_Timestamp
 		params.push_back(BindParam(intType, request.getPostData("createTabGuests")));//Number_Of_Guests
 		params.push_back(BindParam(textType, request.getPostData("createTabName")));//Name
-		//TODO: get staff ID
-		params.push_back(BindParam(intType, "1"));//Staff_ID
+
+		params.push_back(BindParam(intType, "1"));
 
 		db->runNoReturnQuery("INSERT INTO `Tab` (`Table_Number`, `Opened_Timestamp`, `Number_Of_Guests`, `Name`, `Staff_ID`, `Closed_Timestamp`) VALUES (? , ? , ? , ?, ?, '')", params);
 

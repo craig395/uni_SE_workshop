@@ -31,7 +31,7 @@ passedHead HtmlHeadProcessor::pharseHead(string head)
 	{//Is a POST request
 		//Get all the POST data
 		while (std::regex_search(head, match, postDataRegex)) {
-			if (match.size() == 3) {//TODO: tidy up
+			if (match.size() == 3) {
 				ssub_match sub_match = match[1];
 				string name= sub_match.str();
 				sub_match = match[2];

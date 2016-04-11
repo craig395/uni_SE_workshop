@@ -23,9 +23,6 @@ string MakePayment::runPage(PageRequest request)
 		//Calculate price for all complete orders
 		int total = calculateTotalCost(request.getPostData("tabID"));
 
-		//TODO: Apply payment modifiers to total
-
-
 		//Return total cost and payment option
 		string output = "<center><h>Total cost: " + to_string(total) + "</h></center>";
 		output += "<form action=\"\" method=\"post\"><fieldset><legend>Payment options</legend>";
@@ -66,7 +63,6 @@ string MakePayment::runPage(PageRequest request)
 		params.push_back(BindParam(textType, timeStamp));
 		params.push_back(BindParam(intType, "1"));
 		db->runNoReturnQuery("INSERT INTO `Payment` (`Tab_ID`, `Sub_Total`, `Total`, `Transaction_Type`, `Timestamp`, `Staff_ID`) VALUES (?,?,?,?,?,?)", params);
-		//TODO: Create any payment modifiers
 
 		//Close tab
 		params.clear();
@@ -91,8 +87,6 @@ string MakePayment::runPage(PageRequest request)
 	{//No submissions, first stage
 		//Output tab selection form
 		string output = generateTabSelectionForm();
-
-		//TODO: Check if details needed for payment modifiers
 
 		return output;
 	}

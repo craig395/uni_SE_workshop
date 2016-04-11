@@ -64,7 +64,7 @@ string FindTable::runPage(PageRequest request)
 		string statusColum;
 
 		//Div used to cover output
-		const string listItemStart = "<div ";//TODO: on click load the next stage to setup ()onclick=\"post('/manage-table',{flag : 'form', tableID : ''}); \" 
+		const string listItemStart = "<div ";
 		const string listItemStart2 = "class=\"orderItem manageItem\">";
 		const string listItemEnd = "</div>";
 
@@ -92,7 +92,7 @@ string FindTable::runPage(PageRequest request)
 		}
 		else
 		{//No items in list
-			output = "No items";//TODO: make it look nicer
+			output = "No items";
 		}
 
 

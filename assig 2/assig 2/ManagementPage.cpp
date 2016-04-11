@@ -6,8 +6,6 @@ ManagementPage::ManagementPage(DatabaseHelper* dbHelper)
 {
 	pagePath = "/manage-table";
 
-	//Set HTML cache
-	//TODO: this
 
 	//set the db helper
 	db = dbHelper;
@@ -136,7 +134,7 @@ string ManagementPage::generateList()
 	}
 	else
 	{//No items in list
-		output = "No items";//TODO: make it look nicer
+		output = "No items";
 	}
 
 	//Clean up

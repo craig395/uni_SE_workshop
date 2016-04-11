@@ -90,10 +90,13 @@
     <ClInclude Include="SetTableStatus.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
-    <ClInclude Include="TakeOrder.h">
+    <ClInclude Include="MakePayment.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
-    <ClInclude Include="MakePayment.h">
+    <ClInclude Include="TakeOrder.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ManageReservation.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
   </ItemGroup>
@@ -150,6 +153,9 @@
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
     <ClCompile Include="MakePayment.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="ManageReservation.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
   </ItemGroup>

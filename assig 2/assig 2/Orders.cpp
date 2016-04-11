@@ -64,10 +64,11 @@ Orders::~Orders()
 
 string Orders::runPage(PageRequest request)
 {
-	//TODO: maybe tidy up a little, mostly comment
+	//Start and end divs for ech item 
 	string listItemStart = "<div class=\"orderItem\">";
 	string listItemEnd = "</div>";
 
+	//Strings to hold columns of info
 	vector<vector<string>>* results = db->runQuery("SELECT * FROM `Order`;");
 	string orderIdList;
 	string tabIdList;

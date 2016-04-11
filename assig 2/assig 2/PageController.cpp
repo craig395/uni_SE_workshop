@@ -7,6 +7,7 @@
 #include "SetTableStatus.h"
 #include "TakeOrder.h"
 #include "MakePayment.h"
+#include "ManageReservation.h"
 
 PageController::PageController()
 {
@@ -36,13 +37,13 @@ PageController::PageController()
 	pages[setTableStatusID] = new SetTableStatus(dbHelper);
 	pages[takeOrderID] = new TakeOrder(dbHelper);
 	pages[makePaymentID] = new MakePayment(dbHelper);
+	pages[manageReservation] = new ManageReservation(dbHelper);
 }
 
 
 PageController::~PageController()
 {
 	//Delete all pages
-	//TODO: why?????
 	for (auto i = pages.begin(); i != pages.end(); ++i)
 	{
 		delete (*i).second;
@@ -57,14 +58,12 @@ PageController::~PageController()
 
 string PageController::handleRequest(passedHead request)
 {
-	//TODO: work out what user made the request
-
 	//Work out what page is being requested
 	pageId resolvedPage;
 	string pageOutput;
 	if (request.url == "/")
 	{
-		resolvedPage = indexID;
+		resolvedPage = orderID;
 	}else if (request.url == "/mystyle.css")
 	{
 		resolvedPage = styleSheetID;
@@ -81,7 +80,7 @@ string PageController::handleRequest(passedHead request)
 			{//It is
 				resolvedPage = i->first;
 				//No need to continue the loop so exit
-				break;//TODO: as if considered bad in this case
+				break;
 			}
 		}
 	}
@@ -106,7 +105,6 @@ string PageController::handleRequest(passedHead request)
 
 
 	//Merge with template if needed
-	//TODO: above
 	if (request.postData.find("ajaxFlag") == request.postData.end())
 	{//Encapsulate in template
 		return templateStartCache + pageOutput + templateEndCache;

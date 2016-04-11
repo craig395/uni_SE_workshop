@@ -10,6 +10,7 @@ enum pageId
 	closeTabID,
 	takeOrderID,
 	makePaymentID,
+	manageReservation,
 	setTableStatusID,
 	styleSheetID,
 	unknown404

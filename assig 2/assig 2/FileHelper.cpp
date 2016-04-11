@@ -31,7 +31,7 @@ string FileHelper::getTextfromFile(string file)
 	}
 	else
 	{
-		//TODO: log error
+		cout << "File access error!!";
 	}
 
 	return output;

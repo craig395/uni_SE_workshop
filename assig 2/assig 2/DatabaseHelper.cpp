@@ -6,7 +6,7 @@ DatabaseHelper::DatabaseHelper(string databasePath)
 	//Make connection to the DB file
 	if(SQLITE_OK != sqlite3_open(databasePath.c_str(), &dbConnection)) 
 	{
-		sqlite3_errmsg(dbConnection);//TODO: output this to the error log
+		sqlite3_errmsg(dbConnection);
 		sqlite3_close(dbConnection);
 		throw;
 	}
@@ -25,7 +25,7 @@ vector<vector<string>>* DatabaseHelper::runQuery(string query, vector<BindParam>
 	//Prepare connection
 	if(SQLITE_OK != sqlite3_prepare_v2(dbConnection, query.c_str(), -1, &dbQuery, nullptr))
 	{
-		sqlite3_errmsg(dbConnection);//TODO: output this string to the error log
+		sqlite3_errmsg(dbConnection);
 		return nullptr;
 	}
 
@@ -67,14 +67,14 @@ vector<vector<string>>* DatabaseHelper::runQuery(string query, vector<BindParam>
 	return returnValue;
 }
 
-void DatabaseHelper::runNoReturnQuery(string query, vector<BindParam> params)//TODO: change to return true or false based on success or failure
+void DatabaseHelper::runNoReturnQuery(string query, vector<BindParam> params)
 {
 	sqlite3_stmt* dbQuery = nullptr;
 
 	//Prepare connection
 	if (SQLITE_OK != sqlite3_prepare_v2(dbConnection, query.c_str(), -1, &dbQuery, nullptr))
 	{
-		sqlite3_errmsg(dbConnection);//TODO: output this string to the error log
+		sqlite3_errmsg(dbConnection);
 		return;
 	}
 
@@ -90,7 +90,7 @@ void DatabaseHelper::runNoReturnQuery(string query, vector<BindParam> params)//T
 		else
 		{
 			//convert string to int
-			int tmp = atoi(itr->value.c_str());//TODO: Check for errors
+			int tmp = atoi(itr->value.c_str());
 			sqlite3_bind_int(dbQuery, i, tmp);
 		}
 	}

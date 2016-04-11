@@ -3,10 +3,6 @@
 #include <string>
 #include <vector>
 
-#if _DEBUG //TODO: remove when finished
-#include <vld.h> //Memory leaks
-#endif
-
 using namespace std;
 
 void main() {
@@ -15,8 +11,6 @@ void main() {
 	httpServer server;
 	server.startListening();
 	cout << "Server Started, access the server at http://localhost" << endl;
-
-	//TODO: Listen for errors
 	
 
 	//Process user input

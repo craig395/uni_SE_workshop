@@ -1,2 +1,21 @@
-﻿  MakePayment.cpp
+﻿  TakeOrder.cpp
+  SystemPage.cpp
+  Source.cpp
+  SetTableStatus.cpp
+  PageRequest.cpp
+  PageController.cpp
+  Orders.cpp
+  OpenTab.cpp
+  ManageReservation.cpp
+  ManagementPage.cpp
+  MakePayment.cpp
+  httpServer.cpp
+  httpDispacher.cpp
+  HtmlHeadProcessor.cpp
+  FindTable.cpp
+  FileHelper.cpp
+  DatabaseHelper.cpp
+  CloseTab.cpp
+  Generating Code...
+  sqlite3.c
   assig 2.vcxproj -> C:\Users\craig\Source\Repos\uni_SE_workshop\assig 2\Debug\assig 2.exe

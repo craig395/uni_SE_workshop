@@ -162,6 +162,7 @@
     <ClInclude Include="httpServer.h" />
     <ClInclude Include="MakePayment.h" />
     <ClInclude Include="ManagementPage.h" />
+    <ClInclude Include="ManageReservation.h" />
     <ClInclude Include="OpenTab.h" />
     <ClInclude Include="Orders.h" />
     <ClInclude Include="PageController.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="httpServer.cpp" />
     <ClCompile Include="MakePayment.cpp" />
     <ClCompile Include="ManagementPage.cpp" />
+    <ClCompile Include="ManageReservation.cpp" />
     <ClCompile Include="OpenTab.cpp" />
     <ClCompile Include="Orders.cpp" />
     <ClCompile Include="PageController.cpp" />
@@ -201,6 +203,5 @@
     <None Include="database.db" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

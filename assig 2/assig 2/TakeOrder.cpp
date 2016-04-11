@@ -56,23 +56,53 @@ string TakeOrder::runPage(PageRequest request)
 		if (!regex_match(request.getPostData("tabID"), numberCheck))
 		{//Order item form submission 
 			//Create the submitted orderItem
-			//Prepare parameters
-			vector<BindParam> params;
-			params.push_back(BindParam(intType, request.getPostData("saleItemID")));
-			params.push_back(BindParam(intType, request.getPostData("orderID")));
-			params.push_back(BindParam(intType, request.getPostData("numberOfItems")));
 
-			db->runNoReturnQuery("INSERT INTO `Order_Item` (`Sale_Item_ID`, `Order_ID`, `Quantity`) VALUES (?,?,?)", params);
+			//Check if that item was already added to the list
+			vector<BindParam> params2;
+			params2.push_back(BindParam(intType, request.getPostData("saleItemID")));
+			params2.push_back(BindParam(intType, request.getPostData("orderID")));
+			vector<vector<string>>* result = db->runQuery("SELECT `Quantity` FROM `Order_Item` WHERE  (`Sale_Item_ID` = ? ) AND ( `Order_ID` = ? )", params2);
+
+			//If results where returned, then that item type was already added
+			if (result->size() > 0)
+			{//There are results, item already added
+				//Calculate new quantity
+				int quantity = stoi(request.getPostData("numberOfItems")) + stoi((*result)[0][0]);
+				//Update item quantity
+				vector<BindParam> params;
+				params.push_back(BindParam(intType, to_string(quantity) ));
+				params.push_back(BindParam(intType, request.getPostData("saleItemID")));
+				params.push_back(BindParam(intType, request.getPostData("orderID")));
+
+				db->runNoReturnQuery("UPDATE `Order_Item` SET `Quantity` = ? WHERE ( `Sale_Item_ID` = ? ) AND ( `Order_ID` = ? )", params);
+			}
+			else
+			{//No results, item not added already
+				//Create item
+				//Prepare parameters
+				vector<BindParam> params;
+				params.push_back(BindParam(intType, request.getPostData("saleItemID")));
+				params.push_back(BindParam(intType, request.getPostData("orderID")));
+				params.push_back(BindParam(intType, request.getPostData("numberOfItems")));
+
+				db->runNoReturnQuery("INSERT INTO `Order_Item` (`Sale_Item_ID`, `Order_ID`, `Quantity`) VALUES (?,?,?)", params);
+			}
+			
 
 			//Check for final submission
 			if (request.getPostData("button") != "SubmitAndEnd")
 			{//Not final
 
 			 //Output order item form
-				return generateOrderItemForm(request.getPostData("saleItemID"));
+				return generateOrderItemForm(request.getPostData("orderID"));
 			}
 			else
 			{//Final
+				vector<BindParam> params2;
+				params2.push_back(BindParam(intType, request.getPostData("orderID")));
+
+				db->runNoReturnQuery("UPDATE `Order` SET `Status`= 'complete' WHERE `ID` = ?", params2);
+
 				return "<center><h>Order made</h></center>";
 			}
 
@@ -136,7 +166,7 @@ string TakeOrder::createOrder(string tabID)
 	//Prepare parameters
 	vector<BindParam> params;
 	params.push_back(BindParam(intType, tabID));
-	params.push_back(BindParam(intType, "1"));//TODO: get user id
+	params.push_back(BindParam(intType, "1"));
 	params.push_back(BindParam(textType, timeStamp));
 	//Run query
 	db->runNoReturnQuery("INSERT INTO `Order` (`Tab_ID`, `Staff_ID`, `Status`, `Timestamp`) VALUES (? , ? , 'in-prog', ?);", params);
